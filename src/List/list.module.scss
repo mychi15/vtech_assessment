@@ -1,0 +1,63 @@
+@import '../App.scss';
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1rem;
+
+  .buttonCenter {
+    position: fixed;
+    top: 45%;
+    align-self: center;
+    justify-content: center;
+
+    div {
+      cursor: pointer;
+      padding: 1rem;
+      font-size: 1.5rem;
+      border-radius: 0.5rem;
+    }
+  }
+  
+  .buttonBottom {
+    padding: 1rem 0;
+    text-align: center;
+    cursor: pointer;
+    
+    div {
+      font-size: unset;
+      background-color: unset;
+    }
+  }
+
+  .newListForm {
+    position: fixed;
+    height: 2.5rem;
+    top: 45%;
+    align-self: center;
+    justify-content: center;
+  }
+
+}
+
+form {
+  input {
+    padding: 0.5rem;
+    border: 1px solid $app-black;
+    &:focus{
+      outline: none;
+    }
+  }
+  
+  button{
+    cursor: pointer;
+    display: inline-block;
+    border: none;
+    padding: 0.45rem 0.5rem 0.5rem;
+  }
+}
+
+.disabled{
+  background-color: $app-gray;
+}

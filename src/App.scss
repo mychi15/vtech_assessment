@@ -1,13 +1,57 @@
-$app-bg-blue: #0095ff;
-$app-bg-purple: #9000ff;
-$app-bg-green: #64bc00;
-$app-bg-orange: #ff8400;
+$app-bg-blue: #d7eeff;
+$app-bg-purple: #eed9ff;
+$app-bg-green: #e5ffc8;
+$app-bg-orange: #ffdfbc;
+
+$app-blue: #0095ff;
+$app-purple: #9000ff;
+$app-green: #64bc00;
+$app-orange: #ff8400;
 
 $app-gray: #aeaeae;
 $app-red: #ff5656;
 $app-black: #000;
 $app-white: #fff;
 $app-translucent: rgba(0, 0, 0, 0.6);
+
+
+:global(.bg-blue){
+  background-color: $app-bg-blue;
+}
+:global(.bg-purple){
+  background-color: $app-bg-purple;
+}
+:global(.bg-green){
+  background-color: $app-bg-green;
+}
+:global(.bg-orange){
+  background-color: $app-bg-orange;
+}
+
+:global(.blue){
+  color: $app-blue;
+}
+:global(.purple){
+  color: $app-purple;
+}
+:global(.green){
+  color: $app-green;
+}
+:global(.orange){
+  color: $app-orange;
+}
+:global(.bg-main-blue){
+  background-color: $app-blue;
+}
+:global(.bg-main-purple){
+  background-color: $app-purple;
+}
+:global(.bg-main-green){
+  background-color: $app-green;
+}
+:global(.bg-main-orange){
+  background-color: $app-orange;
+}
 
 // .App {
 //   text-align: center;

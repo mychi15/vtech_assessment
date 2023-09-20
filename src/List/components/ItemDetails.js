@@ -87,7 +87,7 @@ export default function ItemDetails() {
       {item && item.status === "pending" && !showTimer && (
         <div className={css.itemInfo}>
           <div>進行時間</div>
-          <div onClick={() => startTimer()} className={classnames(css.timerStart, `bg-main-${theme}`)}>Start</div>
+          <div onClick={() => startTimer()} className={classnames(css.timerStart, `bg-main-${theme}`)}>開始</div>
         </div>
       )}
 

@@ -16,7 +16,7 @@ export default function Menu() {
 }
 
 function SideBar({ showMenu, setShowMenu }) {
-  const { setShowItemType } = useContext(ListContext);
+  const { setShowItemType, showItemType } = useContext(ListContext);
   const { theme } = useContext(ThemeContext);
 
   const handleMenuItem = (status) => {
@@ -24,17 +24,26 @@ function SideBar({ showMenu, setShowMenu }) {
     setShowMenu(!showMenu);
   }
 
+  const activeClasses = classnames({
+    [`bg-${theme}`]: true,
+    [`${theme}`]: true
+  })
+
+  const hoverClasses = classnames({
+    [`hover-${theme}`]: true
+  })
+
   return (
     <div className={css.menuContainer}>
       <div className={css.menuSideBar}>
         <div className={css.menuHeader}>TODO</div>
-        <div onClick={() => handleMenuItem("all")} className={classnames(css.menuItem, `hover-bg-${theme}`, `hover-${theme}`)}>
+        <div onClick={() => handleMenuItem("all")} className={classnames(css.menuItem, showItemType === "all" ? activeClasses : hoverClasses)}>
           <div>All Items</div>
         </div>
-        <div onClick={() => handleMenuItem("completed")} className={classnames(css.menuItem, `hover-bg-${theme}`, `hover-${theme}`)}>
+        <div onClick={() => handleMenuItem("completed")} className={classnames(css.menuItem, showItemType === "completed" ? activeClasses : hoverClasses)}>
           <div>Completed items</div>
         </div>
-        <div onClick={() => handleMenuItem("pending")} className={classnames(css.menuItem, `hover-bg-${theme}`, `hover-${theme}`)}>
+        <div onClick={() => handleMenuItem("pending")} className={classnames(css.menuItem, showItemType === "pending" ? activeClasses : hoverClasses)}>
           <div>Pending Items</div>
         </div>
       </div>

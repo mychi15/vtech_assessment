@@ -14,15 +14,44 @@ $app-black: #000;
 $app-white: #fff;
 $app-translucent: rgba(0, 0, 0, 0.6);
 
-:global(.hover-bg-blue){
-  &:hover {
-    background-color: $app-bg-blue;
-  }
-}
-
+// :global(.hover-bg-blue){
+//   &:hover {
+//     background-color: $app-bg-blue;
+//   }
+// }
+// :global(.hover-bg-purple){
+//   &:hover {
+//     background-color: $app-bg-purple;
+//   }
+// }
+// :global(.hover-bg-green){
+//   &:hover {
+//     background-color: $app-bg-green;
+//   }
+// }
+// :global(.hover-bg-orange){
+//   &:hover {
+//     background-color: $app-bg-orange;
+//   }
+// }
 :global(.hover-blue){
   &:hover {
     color: $app-blue;
+  }
+}
+:global(.hover-purple){
+  &:hover {
+    color: $app-purple;
+  }
+}
+:global(.hover-green){
+  &:hover {
+    color: $app-green;
+  }
+}
+:global(.hover-orange){
+  &:hover {
+    color: $app-orange;
   }
 }
 

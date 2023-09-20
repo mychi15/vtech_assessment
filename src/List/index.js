@@ -5,8 +5,8 @@ import React, {
   useCallback,
   useRef,
 } from "react";
-import css from "./list.module.scss";
 import classnames from "classnames";
+import css from "./list.module.scss";
 
 import Search from "./components/Search";
 import NewList from "./components/NewList";

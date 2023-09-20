@@ -8,7 +8,7 @@ import { ThemeContext, ListContext } from "../../context";
 export default function ItemDetails() {
   const { theme } = useContext(ThemeContext);
   const { pendingList, setPendingList } = useContext(ListContext);
-  const [ details, setDetails] = useState("")
+  const [details, setDetails] = useState("");
   const params = useParams();
   const navigate = useNavigate();
 
@@ -17,7 +17,7 @@ export default function ItemDetails() {
       if (item.subList[0]) {
         getIndex(item.subList, key, value);
       }
-      
+
       return item[key] === value;
     });
   };
@@ -26,10 +26,9 @@ export default function ItemDetails() {
 
   useEffect(() => {
     const existingRemarks = pendingList && pendingList[itemIdx]?.remarks;
-    setDetails(existingRemarks)
-  }, [itemIdx, pendingList])
-  
-  
+    setDetails(existingRemarks);
+  }, [itemIdx, pendingList]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const remarks = details;
@@ -38,12 +37,12 @@ export default function ItemDetails() {
       updatedList[itemIdx].remarks = remarks || "";
     }
     setPendingList(updatedList);
-    navigate("/")
+    navigate("/");
   };
 
   const handleChange = (e) => {
-    setDetails(e.target.value)
-  }
+    setDetails(e.target.value);
+  };
 
   return (
     <div className={css.itemDetails}>
@@ -55,6 +54,7 @@ export default function ItemDetails() {
       <div className={css.itemInfo}>
         <div>進行時間</div>
         <div className={`gray`}>1分30秒</div>
+        {/* duration */}
       </div>
 
       <div className={css.itemInfo}>
@@ -67,7 +67,9 @@ export default function ItemDetails() {
           columns="10"
           className={css.detailsInput}
           placeholder="輸入備註"
-          onChange={(e) => {handleChange(e)}}
+          onChange={(e) => {
+            handleChange(e);
+          }}
           value={details}
         />
         <button
@@ -76,7 +78,12 @@ export default function ItemDetails() {
         >
           完成
         </button>
-        <button onClick={() => navigate("/")} className={classnames(css.detailsButton, `bg-main-red`)}>刪除</button>
+        <button
+          onClick={() => navigate("/")}
+          className={classnames(css.detailsButton, `bg-main-red`)}
+        >
+          刪除
+        </button>
       </form>
     </div>
   );

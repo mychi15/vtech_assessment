@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import classnames from 'classnames';
+import classnames from "classnames";
 import css from "../list.module.scss";
 
 import { ListContext, SearchContext, ThemeContext } from "../../context";
@@ -9,10 +9,10 @@ export default function Items() {
   const { pendingList } = useContext(ListContext);
   const { searchResults } = useContext(SearchContext);
   const { theme } = useContext(ThemeContext);
-  
+
   return (
     <div className={css.list}>
-      <Listing list={searchResults || pendingList} theme={theme}/>
+      <Listing list={searchResults || pendingList} theme={theme} />
     </div>
   );
 }

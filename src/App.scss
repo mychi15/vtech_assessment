@@ -39,8 +39,11 @@ $app-translucent: rgba(0, 0, 0, 0.6);
 :global(.orange){
   color: $app-orange;
 }
-:global(.gray) {
+:global(.gray){
   color: $app-gray;
+}
+:global(.white){
+  color: $app-white;
 }
 :global(.bg-main-blue){
   background-color: $app-blue;

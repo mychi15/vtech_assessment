@@ -1,19 +1,11 @@
 import React, { useContext, useState, useEffect, useMemo } from "react";
-import debounce from 'lodash.debounce';
+import debounce from "lodash.debounce";
 import { useParams, useNavigate } from "react-router-dom";
 import classnames from "classnames";
 import css from "../list.module.scss";
 
+import { getDuration, getIndex } from "../../util";
 import { ThemeContext, ListContext } from "../../context";
-
-const getIndex = (list, key, value) => {
-  return list.findIndex((item) => {
-    if (item.subList[0]) {
-      getIndex(item.subList, key, value);
-    }
-    return item[key] === value;
-  });
-};
 
 export default function ItemDetails() {
   const { theme } = useContext(ThemeContext);
@@ -24,7 +16,8 @@ export default function ItemDetails() {
   const itemIdx = params?.itemId && getIndex(list, "id", params.itemId);
   const item = list[itemIdx];
   const [details, setDetails] = useState(list[itemIdx]?.remarks);
-  
+  const [showTimer, setShowTimer] = useState(!!item.startTime);
+
   useEffect(() => {
     if (list.length === 0) {
       navigate("/");
@@ -36,24 +29,27 @@ export default function ItemDetails() {
     const itemIdx = params?.itemId && getIndex(list, "id", params.itemId);
     if (itemIdx !== -1) updatedList[itemIdx].remarks = e.target.value;
     setList(updatedList);
-  }
+  };
 
   const changeHandler = useMemo(() => debounce(updateData, 500), []);
 
   const handleChange = (e) => {
     setDetails(e.target.value);
     changeHandler(e);
-  }
+  };
 
   useEffect(() => {
-    return () => changeHandler.cancel()
-  }, [changeHandler])
+    return () => changeHandler.cancel();
+  }, [changeHandler]);
 
   const handleCompleted = (e) => {
     e.preventDefault();
     const updatedList = [...list];
     const itemIdx = params?.itemId && getIndex(list, "id", params.itemId);
-    if (itemIdx !== -1) updatedList[itemIdx].status = "completed";
+    if (itemIdx !== -1) {
+      updatedList[itemIdx].status = "completed"
+      updatedList[itemIdx].completionTime = new Date().getTime();
+    };
     setList(updatedList);
   };
 
@@ -63,8 +59,15 @@ export default function ItemDetails() {
     const itemIdx = params?.itemId && getIndex(list, "id", params.itemId);
     updatedList.splice(itemIdx, 1);
     setList(updatedList);
-    navigate("/")
-  }
+    navigate("/");
+  };
+
+  const startTimer = () => {
+    const updatedList = [...list];
+    const itemIdx = params?.itemId && getIndex(list, "id", params.itemId);
+    updatedList[itemIdx].startTime = new Date().getTime();
+    setShowTimer(true);
+  };
 
   return (
     <div className={css.itemDetails}>
@@ -73,11 +76,18 @@ export default function ItemDetails() {
         <div className={`gray`}>無</div> {/* upper level task */}
       </div>
 
-      <div className={css.itemInfo}>
-        <div>進行時間</div>
-        <div className={`gray`}>1分30秒</div>
-        {/* duration */}
-      </div>
+      {item && item.status === "completed" && (
+        <div className={css.itemInfo}>
+          <div>進行時間</div>
+          {showTimer && <ShowTimer startTime={item.startTime} completionTime={item.completionTime} />}
+        </div>
+      )}
+      {item && item.status === "pending" && !showTimer && (
+        <div className={css.itemInfo}>
+          <div>進行時間</div>
+          <div onClick={() => startTimer()} className={classnames(css.timerStart, `bg-main-${theme}`)}>Start</div>
+        </div>
+      )}
 
       <div className={css.itemInfo}>
         <div>備註</div>
@@ -93,12 +103,12 @@ export default function ItemDetails() {
           value={details}
         />
         {item && item.status === "pending" && (
-        <button
-          type="submit"
-          className={classnames(css.detailsButton, `bg-main-${theme}`)}
-        >
-          完成
-        </button>
+          <button
+            type="submit"
+            className={classnames(css.detailsButton, `bg-main-${theme}`)}
+          >
+            完成
+          </button>
         )}
         <button
           onClick={(e) => handleDelete(e)}
@@ -107,6 +117,16 @@ export default function ItemDetails() {
           刪除
         </button>
       </form>
+    </div>
+  );
+}
+
+function ShowTimer({ startTime, completionTime }) {
+  const [hours, minutes, seconds] = getDuration(startTime, completionTime);
+
+  return (
+    <div className={`gray`}>
+      {hours || 0}時{minutes || 0}分{seconds || 0}秒
     </div>
   );
 }

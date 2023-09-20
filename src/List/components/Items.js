@@ -6,7 +6,7 @@ import css from "../list.module.scss";
 import { ListContext, SearchContext, ThemeContext } from "../../context";
 
 export default function Items() {
-  const { list } = useContext(ListContext);
+  const { list, showItemType } = useContext(ListContext);
   const { searchResults, searchValue } = useContext(SearchContext);
   const { theme } = useContext(ThemeContext);
 
@@ -15,13 +15,13 @@ export default function Items() {
 
   return (
     <div className={css.list}>
-      {console.log(searchValue, "searchVAlue")}
       {searchResults ? (
         <Listing list={searchResults} />
       ) : (
         <>
-          <Listing list={pendingList} />
-          {completedList.length > 0 && (
+          {showItemType === "completed" && <Listing list={completedList} />}
+          {showItemType !== "completed" && <Listing list={pendingList} />}
+          {showItemType !== "pending" && showItemType !== "completed" && completedList.length > 0 && (
             <>
               <div className={classnames(theme, css.statusTitle)}></div>
               <Listing list={completedList} />

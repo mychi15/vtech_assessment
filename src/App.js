@@ -11,6 +11,8 @@ import { ListContext, ThemeContext } from "./context";
 function App() {
   const [theme, setTheme] = useState("blue");
   const [list, setList] = useState([]);
+  const [showItemType, setShowItemType] = useState("all");
+
   const themeOptions = themes.themeOptions;
 
   const handleAddToList = (item) => {
@@ -29,7 +31,15 @@ function App() {
   return (
     <div className="App">
       <ThemeContext.Provider value={{ theme, setTheme, themeOptions }}>
-        <ListContext.Provider value={{ list, handleAddToList, setList }}>
+        <ListContext.Provider
+          value={{
+            list,
+            handleAddToList,
+            setList,
+            showItemType,
+            setShowItemType,
+          }}
+        >
           <Navigation />
           <Outlet />
         </ListContext.Provider>

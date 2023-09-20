@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import classnames from 'classnames';
 import css from "../list.module.scss";
 
@@ -8,8 +8,12 @@ export default function NewItem(props) {
   const { theme } = useContext(ThemeContext);
   const { handleAddToList } = useContext(ListContext);
   const { postSubmit, localFunction } = props;
-
   const inputRef = useRef();
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
   const handleForm = (e) => {
     e.preventDefault();
     handleAddToList(inputRef.current.value);

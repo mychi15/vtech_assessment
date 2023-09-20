@@ -14,6 +14,17 @@ $app-black: #000;
 $app-white: #fff;
 $app-translucent: rgba(0, 0, 0, 0.6);
 
+:global(.hover-bg-blue){
+  &:hover {
+    background-color: $app-bg-blue;
+  }
+}
+
+:global(.hover-blue){
+  &:hover {
+    color: $app-blue;
+  }
+}
 
 :global(.bg-blue){
   background-color: $app-bg-blue;

@@ -10,4 +10,4 @@ export const ThemeContext = createContext({
   ]
 });
 export const ListContext = createContext("");
-export const SearchContext = createContext("")
+export const SearchContext = createContext("");

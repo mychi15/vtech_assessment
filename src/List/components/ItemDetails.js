@@ -58,7 +58,6 @@ export default function ItemDetails() {
     updatedList.splice(itemIdx, 1)
     updatedList.push(item);
 
-    console.log(updatedList, "updatedList");
     setList(updatedList);
     navigate("/");
   };

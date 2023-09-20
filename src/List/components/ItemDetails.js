@@ -7,7 +7,7 @@ import { ThemeContext, ListContext } from "../../context";
 
 export default function ItemDetails() {
   const { theme } = useContext(ThemeContext);
-  const { pendingList, setPendingList } = useContext(ListContext);
+  const { pendingList, setPendingList, completedList, setCompletedList } = useContext(ListContext);
   const [details, setDetails] = useState("");
   const params = useParams();
   const navigate = useNavigate();
@@ -27,6 +27,8 @@ export default function ItemDetails() {
   useEffect(() => {
     const existingRemarks = pendingList && pendingList[itemIdx]?.remarks;
     setDetails(existingRemarks);
+
+    return () => setDetails("")
   }, [itemIdx, pendingList]);
 
   const handleSubmit = (e) => {
@@ -42,6 +44,15 @@ export default function ItemDetails() {
 
   const handleChange = (e) => {
     setDetails(e.target.value);
+  };
+
+  const handleCompleted = (e) => {
+    e.preventDefault();
+    const updatedList = [...pendingList];
+    updatedList.splice(itemIdx, 1);
+    setCompletedList([pendingList[itemIdx], ...completedList]);
+    setPendingList(updatedList);
+    navigate("/");
   };
 
   return (
@@ -79,7 +90,7 @@ export default function ItemDetails() {
           完成
         </button>
         <button
-          onClick={() => navigate("/")}
+          onClick={(e) => handleCompleted(e)}
           className={classnames(css.detailsButton, `bg-main-red`)}
         >
           刪除

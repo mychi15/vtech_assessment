@@ -49,7 +49,7 @@ function SearchInput() {
   }
 
   return (
-    <form onSubmit={(e) => handleForm(e)}>
+    <form className={css.flex} onSubmit={(e) => handleForm(e)}>
       <input
         type="text"
         placeholder="輸入事項名"

@@ -78,7 +78,7 @@ export default function ItemDetails() {
         <div className={`gray`}>無</div> {/* upper level task */}
       </div>
 
-      {item && item.status === "completed" && (
+      {item && item.status === "completed" && showTimer && (
         <div className={css.itemInfo}>
           <div>進行時間</div>
           {showTimer && <ShowTimer startTime={item.startTime} completionTime={item.completionTime} />}

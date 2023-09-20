@@ -150,6 +150,14 @@
 }
 
 form {
+  &.flex {
+    display: flex;
+    button {
+      height: 100%;
+      line-height: 1.4rem;
+    }
+  }
+
   input {
     line-height: 1.4rem;
     padding: 0.3rem;

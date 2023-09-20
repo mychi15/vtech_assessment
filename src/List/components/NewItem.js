@@ -22,7 +22,7 @@ export default function NewItem(props) {
   };
 
   return (
-    <form onSubmit={(e) => handleForm(e)}>
+    <form className={css.flex} onSubmit={(e) => handleForm(e)}>
       <input type="text" placeholder="輸入事項名" ref={inputRef} />
       <button type="submit" className={classnames(`bg-main-${theme}`, `white`)}>
         新增

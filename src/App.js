@@ -10,8 +10,7 @@ import { ListContext, ThemeContext } from "./context";
 
 function App() {
   const [theme, setTheme] = useState("blue");
-  const [pendingList, setPendingList] = useState([]);
-  const [completedList, setCompletedList] = useState([]);
+  const [list, setList] = useState([]);
   const themeOptions = themes.themeOptions;
 
   const handleAddToList = (item) => {
@@ -21,15 +20,16 @@ function App() {
       remarks: "",
       duration: "",
       parent: "",
+      status: "pending",
       subList: [],
     };
-    setPendingList([newItem, ...pendingList]);
+    setList([newItem, ...list]);
   };
 
   return (
     <div className="App">
       <ThemeContext.Provider value={{ theme, setTheme, themeOptions }}>
-        <ListContext.Provider value={{ pendingList, handleAddToList, setPendingList, completedList, setCompletedList }}>
+        <ListContext.Provider value={{ list, handleAddToList, setList }}>
           <Navigation />
           <Outlet />
         </ListContext.Provider>

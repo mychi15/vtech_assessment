@@ -43,12 +43,17 @@ function SearchInput() {
     }
   };
 
+  const handleFocus = () => {
+    inputRef.current.value = "";
+    setSearchValue("");
+  }
+
   return (
     <form onSubmit={(e) => handleForm(e)}>
       <input
         type="text"
         placeholder="輸入事項名"
-        onFocus={() => (inputRef.current.value = "")}
+        onFocus={() => handleFocus()}
         onChange={(e) => handleChange(e)}
         ref={inputRef}
       />

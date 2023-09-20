@@ -17,7 +17,7 @@ export default function Navigation(props) {
   const defaultNav = () => {
     return (
       <>
-        <Menu pendingList={props.pendingList} />
+        <Menu list={props.list} />
         <div className={classnames(css.topNav)}>TODO</div>
       </>
     )};

@@ -7,7 +7,7 @@ import { ThemeContext, ListContext } from "../../context";
 
 export default function ItemDetails() {
   const { theme } = useContext(ThemeContext);
-  const { pendingList, setPendingList, completedList, setCompletedList } = useContext(ListContext);
+  const { list, setList } = useContext(ListContext);
   const [details, setDetails] = useState("");
   const params = useParams();
   const navigate = useNavigate();
@@ -22,23 +22,27 @@ export default function ItemDetails() {
     });
   };
 
-  const itemIdx = params?.itemId && getIndex(pendingList, "id", params.itemId);
+  const itemIdx = params?.itemId && getIndex(list, "id", params.itemId);
+  const item = itemIdx !== -1 && list[itemIdx];
 
   useEffect(() => {
-    const existingRemarks = pendingList && pendingList[itemIdx]?.remarks;
+    if (list.length === 0) {
+      navigate("/");
+    }
+    const existingRemarks = list && list[itemIdx]?.remarks;
     setDetails(existingRemarks);
 
-    return () => setDetails("")
-  }, [itemIdx, pendingList]);
+    return () => setDetails("");
+  }, [itemIdx, list]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const remarks = details;
-    const updatedList = [...pendingList];
-    if (itemIdx > -1 && updatedList) {
+    const updatedList = [...list];
+    if (itemIdx !== -1 && updatedList) {
       updatedList[itemIdx].remarks = remarks || "";
     }
-    setPendingList(updatedList);
+    setList(updatedList);
     navigate("/");
   };
 
@@ -48,10 +52,14 @@ export default function ItemDetails() {
 
   const handleCompleted = (e) => {
     e.preventDefault();
-    const updatedList = [...pendingList];
-    updatedList.splice(itemIdx, 1);
-    setCompletedList([pendingList[itemIdx], ...completedList]);
-    setPendingList(updatedList);
+    const updatedList = [...list];
+
+    item.status = "completed";
+    updatedList.splice(itemIdx, 1)
+    updatedList.push(item);
+
+    console.log(updatedList, "updatedList");
+    setList(updatedList);
     navigate("/");
   };
 
@@ -89,12 +97,14 @@ export default function ItemDetails() {
         >
           完成
         </button>
-        <button
-          onClick={(e) => handleCompleted(e)}
-          className={classnames(css.detailsButton, `bg-main-red`)}
-        >
-          刪除
-        </button>
+        {item && item.status === "pending" && (
+          <button
+            onClick={(e) => handleCompleted(e)}
+            className={classnames(css.detailsButton, `bg-main-red`)}
+          >
+            刪除
+          </button>
+        )}
       </form>
     </div>
   );

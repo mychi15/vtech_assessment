@@ -16,10 +16,10 @@ import AddItem from "./components/AddItem";
 import { SearchContext, ListContext, ThemeContext } from "../context";
 
 export default function List() {
-  const { pendingList } = useContext(ListContext);
+  const { list } = useContext(ListContext);
   return (
     <>
-      {pendingList?.length < 1 ? (
+      {list?.length < 1 ? (
         <div className={css.container}>
           <NewList />
         </div>
@@ -37,8 +37,8 @@ function Todo() {
   const [searchType, setSearchType] = useState("default");
   const [searchResults, setSearchResults] = useState("");
   const { theme } = useContext(ThemeContext);
-  const { pendingList } = useContext(ListContext);
-  let timeout = useRef();
+  const { list } = useContext(ListContext);
+  // let timeout = useRef();
 
   const filterValue = useCallback((list, key, value) => {
     return list.filter((item) => {
@@ -55,26 +55,26 @@ function Todo() {
 
   useEffect(() => {
     if (searchValue && !showItemInput) {
-      clearTimeout(timeout.current);
-      const results = filterValue(pendingList, "title", searchValue);
+      // clearTimeout(timeout.current);
+      const results = filterValue(list, "title", searchValue);
       setSearchResults((results[0] && results) || "查無結果");
-      if (!results[0]) {
-        timeout.current = setTimeout(() => {
-          setSearchResults("");
-          setSearchValue("");
-          setSubSearchValue("");
-        }, 2000);
-      }
+      // if (!results[0]) {
+      //   timeout.current = setTimeout(() => {
+      //     setSearchResults("");
+      //     setSearchValue("");
+      //     setSubSearchValue("");
+      //   }, 3000);
+      // }
     } else {
       setSearchResults("");
       setSearchValue("");
       setSubSearchValue("");
     }
 
-    return () => {
-      clearTimeout(timeout.current);
-    };
-  }, [searchValue, subSearchValue, pendingList, filterValue, showItemInput]);
+    // return () => {
+    //   clearTimeout(timeout.current);
+    // };
+  }, [searchValue, subSearchValue, list, filterValue, showItemInput]);
 
   const handleToggle = () => setShowItemInput(!showItemInput);
 

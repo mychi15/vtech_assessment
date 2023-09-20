@@ -22,6 +22,7 @@ export default function ItemDetails() {
     if (list.length === 0) {
       navigate("/");
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [list]);
 
   const updateData = (e) => {
@@ -31,6 +32,7 @@ export default function ItemDetails() {
     setList(updatedList);
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const changeHandler = useMemo(() => debounce(updateData, 500), []);
 
   const handleChange = (e) => {

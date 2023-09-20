@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useContext,
-  useEffect,
-  useCallback,
-  useRef,
-} from "react";
+import React, { useState, useContext, useEffect, useCallback } from "react";
 import classnames from "classnames";
 import css from "./list.module.scss";
 

@@ -27,7 +27,6 @@ $app-translucent: rgba(0, 0, 0, 0.6);
 :global(.bg-orange){
   background-color: $app-bg-orange;
 }
-
 :global(.blue){
   color: $app-blue;
 }
@@ -40,6 +39,9 @@ $app-translucent: rgba(0, 0, 0, 0.6);
 :global(.orange){
   color: $app-orange;
 }
+:global(.gray) {
+  color: $app-gray;
+}
 :global(.bg-main-blue){
   background-color: $app-blue;
 }
@@ -51,6 +53,9 @@ $app-translucent: rgba(0, 0, 0, 0.6);
 }
 :global(.bg-main-orange){
   background-color: $app-orange;
+}
+:global(.bg-main-red) {
+  background-color: $app-red;
 }
 
 // .App {

@@ -17,6 +17,9 @@ function App() {
     let newItem = {
       id: uuid(),
       title: item,
+      remarks: "",
+      duration: "",
+      parent: "",
       subList: [],
     };
     setPendingList([newItem, ...pendingList]);
@@ -25,7 +28,7 @@ function App() {
   return (
     <div className="App">
       <ThemeContext.Provider value={{ theme, setTheme, themeOptions }}>
-        <ListContext.Provider value={{ pendingList, handleAddToList }}>
+        <ListContext.Provider value={{ pendingList, handleAddToList, setPendingList }}>
           <Navigation />
           <Outlet />
         </ListContext.Provider>

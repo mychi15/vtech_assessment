@@ -32,6 +32,7 @@ function SearchInput() {
     searchType === "default"
       ? setSearchValue(inputRef.current.value)
       : setSubSearchValue(inputRef.current.value);
+    document.activeElement.blur();
   };
 
   const handleChange = () => {
@@ -44,7 +45,7 @@ function SearchInput() {
 
   return (
     <form onSubmit={(e) => handleForm(e)}>
-      <input type="text" placeholder="輸入事項名" onChange={(e) => handleChange(e)} ref={inputRef} />
+      <input type="text" placeholder="輸入事項名" onFocus={() => inputRef.current.value = ""} onChange={(e) => handleChange(e)} ref={inputRef} />
       <button type="submit" className={`bg-main-${theme}`}>
         搜尋
       </button>

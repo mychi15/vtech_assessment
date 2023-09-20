@@ -1,4 +1,10 @@
-import React, { useState, useContext, useEffect, useCallback } from "react";
+import React, {
+  useState,
+  useContext,
+  useEffect,
+  useCallback,
+  useRef,
+} from "react";
 import css from "./list.module.scss";
 import classnames from "classnames";
 
@@ -32,6 +38,7 @@ function Todo() {
   const [searchResults, setSearchResults] = useState("");
   const { theme } = useContext(ThemeContext);
   const { pendingList } = useContext(ListContext);
+  let timeout = useRef();
 
   const filterValue = useCallback((list, key, value) => {
     return list.filter((item) => {
@@ -47,20 +54,27 @@ function Todo() {
   }, []);
 
   useEffect(() => {
-    if (searchValue) {
+    if (searchValue && !showItemInput) {
+      clearTimeout(timeout.current);
       const results = filterValue(pendingList, "title", searchValue);
       setSearchResults((results[0] && results) || "查無結果");
       if (!results[0]) {
-        setTimeout(() => {
+        timeout.current = setTimeout(() => {
           setSearchResults("");
           setSearchValue("");
           setSubSearchValue("");
-        }, 3000);
+        }, 2000);
       }
     } else {
       setSearchResults("");
+      setSearchValue("");
+      setSubSearchValue("");
     }
-  }, [searchValue, subSearchValue, pendingList, filterValue]);
+
+    return () => {
+      clearTimeout(timeout.current);
+    };
+  }, [searchValue, subSearchValue, pendingList, filterValue, showItemInput]);
 
   const handleToggle = () => setShowItemInput(!showItemInput);
 

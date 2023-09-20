@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 import classnames from "classnames";
 import css from "./navigation.module.scss";
 
@@ -11,6 +11,7 @@ import { ThemeContext } from "../context";
 export default function Navigation(props) {
   const location = useLocation();
   const params = useParams();
+  const navigate = useNavigate();
   const { theme } = useContext(ThemeContext);
 
   const defaultNav = () => {
@@ -21,7 +22,10 @@ export default function Navigation(props) {
       </>
     )};
   const detailsNav = () => (
-    <div className={classnames(css.topNav)}>Detials</div>
+    <>
+      <div className={css.navButton} onClick={() => navigate("/")}>返回</div>
+      <div className={css.navDetails}>{params?.itemTitle}</div>
+    </>
   );
 
   return (

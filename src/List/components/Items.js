@@ -21,7 +21,7 @@ function Listing(props) {
   const { list, theme } = props;
   const navigate = useNavigate();
   const handleDetails = (item) => {
-    navigate(`item/${item.id}`);
+    navigate(`item/${item.title}/${item.id}`);
   };
 
   if (Array.isArray(list)) {
@@ -32,7 +32,7 @@ function Listing(props) {
             <div className={css.itemTitle}>{item.title}</div>
             <div
               className={classnames(css.icon, `bg-main-${theme}`)}
-              onClick={(item) => handleDetails(item)}
+              onClick={() => handleDetails(item)}
             ></div>
           </div>
           <div className={classnames(css.itemBorder, `bg-main-${theme}`)}></div>

@@ -12,9 +12,15 @@ import { SearchContext, ListContext, ThemeContext } from "../context";
 export default function List() {
   const { pendingList } = useContext(ListContext);
   return (
-    <div className={css.container}>
-      {pendingList?.length < 1 ? <NewList /> : <Todo />}
-    </div>
+    <>
+      {pendingList?.length < 1 ? (
+        <div className={css.container}>
+          <NewList />
+        </div>
+      ) : (
+        <Todo />
+      )}
+    </>
   );
 }
 
@@ -44,11 +50,13 @@ function Todo() {
     if (searchValue) {
       const results = filterValue(pendingList, "title", searchValue);
       setSearchResults((results[0] && results) || "查無結果");
-      setTimeout(() => {
-        setSearchResults("")
-        setSearchValue("")
-        setSubSearchValue("")
-      }, 3000);
+      if (!results[0]) {
+        setTimeout(() => {
+          setSearchResults("");
+          setSearchValue("");
+          setSubSearchValue("");
+        }, 3000);
+      }
     } else {
       setSearchResults("");
     }

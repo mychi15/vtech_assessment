@@ -1,0 +1,20 @@
+{
+  "themeOptions": [
+    {
+      "color": "blue",
+      "text": "藍色"
+    },
+    {
+      "color": "purple",
+      "text": "紫色"
+    },
+    {
+      "color": "green",
+      "text": "綠色"
+    },
+    {
+      "color": "orange",
+      "text": "橘色"
+    }
+  ]
+}

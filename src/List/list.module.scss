@@ -19,17 +19,6 @@
       border-radius: 0.5rem;
     }
   }
-  
-  .buttonBottom {
-    padding: 1rem 0;
-    text-align: center;
-    cursor: pointer;
-    
-    div {
-      font-size: unset;
-      background-color: unset;
-    }
-  }
 
   .newListForm {
     position: fixed;
@@ -38,12 +27,69 @@
     align-self: center;
     justify-content: center;
   }
+}
+.list {
+  text-align: center;
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
+  .itemRow {
+    @media (min-width: 620px) {
+      width: 37rem;
+    }
+    @media (min-width: 1024px) {
+      width: 50rem;
+    }
+    width: 95vw;
+    .item {
+      display: flex;
+      height: 1.4rem;
+      padding: 0.1rem;
+      display: flex; 
+      align-items: center;
+      justify-content: space-between;
+  
+    }
+    .itemBorder{
+      height: 1.5px;
+      width: 100%;
+      border-radius: 2px;
+    }
+  }
+
+  .icon{
+    margin: 1px;
+    cursor: pointer;
+    width: 1.13rem;
+    height: 0.5rem;
+    mask: url('../assets/icons/arrow-right.svg');
+    -webkit-mask: url('../assets/icons/arrow-right.svg');
+    -webkit-mask-size: cover;
+    mask-size: cover;
+  }
+}
+
+.buttonBottom {
+  padding: 1rem 0;
+  text-align: center;
+  cursor: pointer;
+
+  div {
+    font-size: unset;
+    background-color: unset;
+  }
+}
+
+.infoMessage {
+  padding: 1rem;
 }
 
 form {
   input {
-    padding: 0.5rem;
+    line-height: 1.4rem;
+    padding: 0.3rem;
     border: 1px solid $app-black;
     &:focus{
       outline: none;

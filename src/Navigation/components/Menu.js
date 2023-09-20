@@ -38,13 +38,13 @@ function SideBar({ showMenu, setShowMenu }) {
       <div className={css.menuSideBar}>
         <div className={css.menuHeader}>TODO</div>
         <div onClick={() => handleMenuItem("all")} className={classnames(css.menuItem, showItemType === "all" ? activeClasses : hoverClasses)}>
-          <div>All Items</div>
+          <div>所有事項</div>
         </div>
         <div onClick={() => handleMenuItem("completed")} className={classnames(css.menuItem, showItemType === "completed" ? activeClasses : hoverClasses)}>
-          <div>Completed items</div>
+          <div>已完成事項</div>
         </div>
         <div onClick={() => handleMenuItem("pending")} className={classnames(css.menuItem, showItemType === "pending" ? activeClasses : hoverClasses)}>
-          <div>Pending Items</div>
+          <div>未完成事項</div>
         </div>
       </div>
       <div className={css.menuOverlay} onClick={() => setShowMenu(!showMenu)} />

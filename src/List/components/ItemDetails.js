@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import classnames from "classnames";
 import css from "../list.module.scss";
 
-import { getDuration, getIndex } from "../../util";
+import { getDuration, getIndex, updateList } from "../../util";
 import { useTimer } from "../../hooks/useTimer";
 import { ThemeContext, ListContext } from "../../context";
 
@@ -17,24 +17,23 @@ export default function ItemDetails() {
   const itemIdx = params?.itemId && getIndex(list, "id", params.itemId);
   const item = list[itemIdx];
   const [details, setDetails] = useState(list[itemIdx]?.remarks);
-  const [showTimer, setShowTimer] = useState(!!item.startTime);
 
   useEffect(() => {
     if (list.length === 0) {
       navigate("/");
     }
+    if (!item) {
+      navigate("/");
+    }
+
+    console.log(item, "item")
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [list]);
 
-  const updateData = (e) => {
-    const updatedList = [...list];
-    const itemIdx = params?.itemId && getIndex(list, "id", params.itemId);
-    if (itemIdx !== -1) updatedList[itemIdx].remarks = e.target.value;
-    setList(updatedList);
-  };
-
+  const changeHandler = useMemo((e) => debounce((e) => {
+    updateList(list, "id", params?.itemId, setList, {remarks : e.target.value})();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const changeHandler = useMemo(() => debounce(updateData, 500), []);
+  }, 500), []);
 
   const handleChange = (e) => {
     setDetails(e.target.value);
@@ -47,30 +46,21 @@ export default function ItemDetails() {
 
   const handleCompleted = (e) => {
     e.preventDefault();
-    const updatedList = [...list];
-    const itemIdx = params?.itemId && getIndex(list, "id", params.itemId);
-    if (itemIdx !== -1) {
-      updatedList[itemIdx].status = "completed";
-      updatedList[itemIdx].completionTime = new Date().getTime();
-    }
-    setList(updatedList);
+    updateList(list, "id", params?.itemId, setList, { status: "completed" }, {
+      completionTime: new Date().getTime(),
+    })();
   };
 
   const handleDelete = (e) => {
     e.preventDefault();
-    const updatedList = [...list];
-    const itemIdx = params?.itemId && getIndex(list, "id", params.itemId);
-    updatedList.splice(itemIdx, 1);
-    setList(updatedList);
+    updateList(list, "id", params?.itemId, setList)();
     navigate("/");
   };
 
   const startTimer = () => {
-    const updatedList = [...list];
-    const itemIdx = params?.itemId && getIndex(list, "id", params.itemId);
-    updatedList[itemIdx].startTime = new Date().getTime();
-    setList(updatedList);
-    setShowTimer(true);
+    updateList(list, "id", params?.itemId, setList, {
+      startTime: new Date().getTime(),
+    })();
   };
 
   return (
@@ -80,21 +70,19 @@ export default function ItemDetails() {
         <div className={`gray`}>無</div> {/* upper level task */}
       </div>
 
-      {item && item.status === "completed" && showTimer && (
+      {item && item.status === "completed" && item.startTime && (
         <div className={css.itemInfo}>
           <div>進行時間</div>
-          {showTimer && (
-            <ShowTimer
-              startTime={item.startTime}
-              completionTime={item.completionTime}
-            />
-          )}
+          <ShowTimer
+            startTime={item.startTime}
+            completionTime={item.completionTime}
+          />
         </div>
       )}
       {item && item.status === "pending" && (
         <div className={css.itemInfo}>
           <div>進行時間</div>
-          {showTimer ? (
+          {item.startTime ? (
             <ShowTimer startTime={item.startTime} completionTime={null} />
           ) : (
             <div

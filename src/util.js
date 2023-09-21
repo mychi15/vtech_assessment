@@ -10,6 +10,7 @@ const getDuration = (startTime, endTime) => {
 };
 
 const getIndex = (list, key, value) => {
+  if (!key || !value) return -1;
   return list.findIndex((item) => {
     if (item.subList[0]) {
       getIndex(item.subList, key, value);
@@ -18,4 +19,25 @@ const getIndex = (list, key, value) => {
   });
 };
 
-export { getDuration, getIndex };
+const updateList = (state, findIndexKey, findIndexValue, callBack, ...args) => {
+  const objToUpdate = [...args];
+  const updatedState = [...state];
+  const itemIdx = getIndex(state, findIndexKey, findIndexValue);
+  const item = updatedState[itemIdx];
+
+  if (objToUpdate.length === 0) {
+    updatedState.splice(itemIdx, 1);
+  } else {
+    objToUpdate.forEach((obj) => {
+      const [key, value] = Object.entries(obj)[0];
+      if (itemIdx !== -1) item[key] = value;
+    });
+  }
+  return () => callBack(updatedState);
+};
+
+const getLocalData = (key, defaultData) => {
+  return JSON.parse(localStorage.getItem(key)) || defaultData;
+};
+
+export { getDuration, getIndex, updateList, getLocalData };

@@ -7,21 +7,20 @@ import Navigation from "./Navigation";
 
 import themes from "./assets/themes/theme.json";
 import { ListContext, ThemeContext } from "./context";
-
-const getLocalData = (key, defaultData) => {
-  return JSON.parse(localStorage.getItem(key)) || defaultData;
-}
+import { getLocalData } from "./util";
 
 function App() {
   const [theme, setTheme] = useState(getLocalData("theme", "blue"));
   const [list, setList] = useState(getLocalData("list", []));
-  const [showItemType, setShowItemType] = useState(getLocalData("showItemType", "all"));
+  const [showItemType, setShowItemType] = useState(
+    getLocalData("showItemType", "all")
+  );
 
   useEffect(() => {
-    localStorage.setItem('showItemType', JSON.stringify(showItemType));
-    localStorage.setItem('theme', JSON.stringify(theme));
-    localStorage.setItem('list', JSON.stringify(list));
-  }, [theme, list, showItemType])
+    localStorage.setItem("showItemType", JSON.stringify(showItemType));
+    localStorage.setItem("theme", JSON.stringify(theme));
+    localStorage.setItem("list", JSON.stringify(list));
+  }, [theme, list, showItemType]);
 
   const themeOptions = themes.themeOptions;
 

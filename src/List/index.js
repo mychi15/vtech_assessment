@@ -8,9 +8,12 @@ import Items from "./components/Items";
 import AddItem from "./components/AddItem";
 
 import { SearchContext, ListContext, ThemeContext } from "../context";
+import { useFocus } from "../hooks/useFocus";
 
 export default function List() {
   const { list } = useContext(ListContext);
+  useFocus();
+
   return (
     <>
       {list?.length < 1 ? (

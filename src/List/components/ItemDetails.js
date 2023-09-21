@@ -25,8 +25,6 @@ export default function ItemDetails() {
     if (!item) {
       navigate("/");
     }
-
-    console.log(item, "item")
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [list]);
 

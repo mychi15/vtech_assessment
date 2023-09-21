@@ -5,7 +5,7 @@ import classnames from "classnames";
 import css from "../list.module.scss";
 
 import { getDuration, getIndex } from "../../util";
-import { useTimer } from '../../hooks/useTimer';
+import { useTimer } from "../../hooks/useTimer";
 import { ThemeContext, ListContext } from "../../context";
 
 export default function ItemDetails() {
@@ -140,7 +140,9 @@ export default function ItemDetails() {
 
 function ShowTimer({ startTime, completionTime }) {
   const timer = useTimer(startTime);
-  const [hours, minutes, seconds] = !!completionTime ? getDuration(startTime, completionTime) : timer;
+  const [hours, minutes, seconds] = !!completionTime
+    ? getDuration(startTime, completionTime)
+    : timer;
 
   return (
     <div className={`gray`}>

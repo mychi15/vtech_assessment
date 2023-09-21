@@ -5,6 +5,7 @@ import classnames from "classnames";
 import css from "../list.module.scss";
 
 import { getDuration, getIndex } from "../../util";
+import { useTimer } from '../../hooks/useTimer';
 import { ThemeContext, ListContext } from "../../context";
 
 export default function ItemDetails() {
@@ -22,7 +23,7 @@ export default function ItemDetails() {
     if (list.length === 0) {
       navigate("/");
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [list]);
 
   const updateData = (e) => {
@@ -49,9 +50,9 @@ export default function ItemDetails() {
     const updatedList = [...list];
     const itemIdx = params?.itemId && getIndex(list, "id", params.itemId);
     if (itemIdx !== -1) {
-      updatedList[itemIdx].status = "completed"
+      updatedList[itemIdx].status = "completed";
       updatedList[itemIdx].completionTime = new Date().getTime();
-    };
+    }
     setList(updatedList);
   };
 
@@ -81,13 +82,27 @@ export default function ItemDetails() {
       {item && item.status === "completed" && showTimer && (
         <div className={css.itemInfo}>
           <div>進行時間</div>
-          {showTimer && <ShowTimer startTime={item.startTime} completionTime={item.completionTime} />}
+          {showTimer && (
+            <ShowTimer
+              startTime={item.startTime}
+              completionTime={item.completionTime}
+            />
+          )}
         </div>
       )}
-      {item && item.status === "pending" && !showTimer && (
+      {item && item.status === "pending" && (
         <div className={css.itemInfo}>
           <div>進行時間</div>
-          <div onClick={() => startTimer()} className={classnames(css.timerStart, `bg-main-${theme}`)}>開始</div>
+          {showTimer ? (
+            <ShowTimer startTime={item.startTime} completionTime={null} />
+          ) : (
+            <div
+              onClick={() => startTimer()}
+              className={classnames(css.timerStart, `bg-main-${theme}`)}
+            >
+              開始
+            </div>
+          )}
         </div>
       )}
 
@@ -124,7 +139,8 @@ export default function ItemDetails() {
 }
 
 function ShowTimer({ startTime, completionTime }) {
-  const [hours, minutes, seconds] = getDuration(startTime, completionTime);
+  const timer = useTimer(startTime);
+  const [hours, minutes, seconds] = !!completionTime ? getDuration(startTime, completionTime) : timer;
 
   return (
     <div className={`gray`}>

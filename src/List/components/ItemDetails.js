@@ -47,6 +47,7 @@ export default function ItemDetails() {
     updateList(list, "id", params?.itemId, setList, { status: "completed" }, {
       completionTime: new Date().getTime(),
     })();
+    navigate("/")
   };
 
   const handleDelete = (e) => {

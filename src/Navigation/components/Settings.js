@@ -17,14 +17,14 @@ export default function Settings() {
 
 function Theme({ option }) {
   const { theme, setTheme } = useContext(ThemeContext);
-  const active = option && option.color === theme ? `active-${theme}` : "";
+  const active = option?.color === theme;
   return (
     <div
-      className={classnames(css.colorContainer, css[active])}
-      onClick={() => setTheme(option.color)}
+      className={classnames(css.colorContainer, active && `bg-${theme}`)}
+      onClick={() => setTheme(option?.color)}
     >
-      <div className={classnames(css.color, `bg-main-${option.color}`)}></div>
-      <div>{option.text}</div>
+      <div className={classnames(css.color, `bg-main-${option?.color}`)}></div>
+      <div>{option?.text}</div>
     </div>
   );
 }

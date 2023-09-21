@@ -100,36 +100,10 @@
     &:hover{
       cursor: pointer;
     }
-
-    &.active-blue{
-      background-color: $app-bg-blue;
-    }
-    &.active-purple{
-      background-color: $app-bg-purple;
-    }
-    &.active-green{
-      background-color: $app-bg-green;
-    }
-    &.active-orange{
-      background-color: $app-bg-orange;
-    }
   }
 
   .color {
     height: 1.5rem;
     width: 1.5rem;
   }
-}
-
-.bgBlue {
-  background-color: $app-blue;
-}
-.bgPurple {
-  background-color: $app-purple;
-}
-.bgGreen {
-  background-color: $app-green;
-}
-.bgOrange {
-  background-color: $app-orange;
 }

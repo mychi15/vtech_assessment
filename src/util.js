@@ -30,7 +30,7 @@ const updateList = (state, findIndexKey, findIndexValue, callBack, ...args) => {
   } else {
     objToUpdate.forEach((obj) => {
       const [key, value] = Object.entries(obj)[0];
-      if (itemIdx !== -1) item[key] = value;
+      if (item) item[key] = value;
     });
   }
   return () => callBack(updatedState);

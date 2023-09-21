@@ -69,6 +69,7 @@ export default function ItemDetails() {
     const updatedList = [...list];
     const itemIdx = params?.itemId && getIndex(list, "id", params.itemId);
     updatedList[itemIdx].startTime = new Date().getTime();
+    setList(updatedList);
     setShowTimer(true);
   };
 
